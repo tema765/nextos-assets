@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#060d1a" />
+<title>Filippo Cosi — Nextos</title>
+<meta name="description" content="Il biglietto di Filippo Cosi, fondatore di Nextos. Te lo presenta Nova." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#060d1a; --ink:#eef4ff; --muted:#92a6c6; --line:rgba(140,180,255,.14);
+    --neon:#7fb4ff; --neon-2:#5aa0ff; --neon-soft:rgba(127,180,255,.16);
+    --disp:'Poppins','Segoe UI',sans-serif; --sans:'Inter',-apple-system,system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;background:#000;color:var(--ink);font-family:var(--sans)}
+  body{display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .card{position:relative;width:100%;max-width:430px;height:100dvh;max-height:920px;background:var(--bg);overflow:hidden;isolation:isolate;box-shadow:0 40px 120px rgba(0,0,0,.7)}
+  @media (min-width:460px){.card{border-radius:30px;height:92dvh}}
+
+  /* sfondo */
+  .bg{position:absolute;inset:0;z-index:0;background:
+     radial-gradient(120% 70% at 50% 20%,rgba(30,64,130,.55),transparent 62%),
+     radial-gradient(140% 90% at 50% 110%,rgba(12,26,52,.95),#050a14 70%),#050a14}
+  .bg-img{position:absolute;inset:-4%;z-index:0;opacity:.55;background:url("https://d8j0ntlcm91z4.cloudfront.net/user_3Ff7bBZK8itlopiFcaBcRZnkLRI/hf_20260712_100440_1e26d9f2-ef81-429d-b911-905a3025c4ad.png") center/cover;animation:drift 60s ease-in-out infinite alternate}
+  @keyframes drift{to{transform:scale(1.08) translateY(-2%)}}
+  .veil{position:absolute;inset:0;z-index:1;background:radial-gradient(90% 60% at 50% 45%,rgba(6,13,26,.3),rgba(6,13,26,.85) 88%)}
+  #fx{position:absolute;inset:0;z-index:2;pointer-events:none}
+
+  /* barra in alto */
+  .topbar{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:18px 22px}
+  .brand-mini{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:600;letter-spacing:.22em;font-size:11px}
+  .brand-mini svg{width:18px;height:18px}
+  .ibtn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(12,22,40,.55);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px)}
+  .ibtn svg{width:16px;height:16px;stroke:#cfe0ff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tools{display:flex;gap:8px}
+  .progress{position:absolute;top:33px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:30}
+  .progress i{width:5px;height:5px;border-radius:50%;background:rgba(160,190,255,.25);transition:.3s;cursor:pointer}
+  .progress i.on{background:var(--neon);width:16px;border-radius:3px;box-shadow:0 0 8px var(--neon)}
+
+  /* Nova */
+  #nova{position:absolute;left:50%;top:92px;width:150px;height:150px;margin-left:-75px;z-index:20;pointer-events:none;opacity:0;transition:opacity .6s ease, transform .9s cubic-bezier(.2,.8,.2,1)}
+  #nova.on{opacity:1}
+  .novalab{position:absolute;left:0;right:0;top:232px;text-align:center;z-index:20;font-family:var(--disp);font-size:9.5px;letter-spacing:.42em;color:#9cc2ff;opacity:0;transition:.5s}
+  .novalab.on{opacity:.9}
+
+  /* sottotitoli */
+  #cap{position:absolute;left:18px;right:18px;bottom:62px;z-index:25;text-align:center;pointer-events:none;opacity:0;transition:opacity .3s}
+  #cap.on{opacity:1}
+  #cap span.box{display:inline-block;padding:9px 14px;border-radius:14px;background:rgba(4,8,18,.78);border:1px solid rgba(127,180,255,.18);backdrop-filter:blur(8px);font-family:var(--disp);font-weight:600;font-size:16px;line-height:1.35;color:#fff}
+  #cap em{font-style:normal;color:rgba(255,255,255,.42);transition:color .12s}
+  #cap em.on{color:#fff}#cap em.now{color:var(--neon)}
+
+  /* schermate */
+  .track{position:absolute;inset:0;z-index:10}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:250px 30px 130px;opacity:0;transform:translateY(16px);transition:opacity .24s ease,transform .4s ease;pointer-events:none}
+  .slide.active{opacity:1;transform:none;pointer-events:auto;transition:opacity .45s ease .2s,transform .55s ease .2s}
+  .kicker{font-family:var(--disp);font-size:10.5px;letter-spacing:.34em;color:var(--neon);text-transform:uppercase;margin-bottom:14px}
+  h1{font-family:var(--disp);font-weight:600;font-size:clamp(36px,10.5vw,46px);line-height:1.06}
+  h2{font-family:var(--disp);font-weight:600;font-size:clamp(26px,7.2vw,33px);line-height:1.12}
+  .grad{background:linear-gradient(100deg,#5aa0ff,#bcd2ee 55%,#eef4ff);background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5s linear infinite}
+  @keyframes shimmer{to{background-position:220% center}}
+  .muted{color:var(--muted)}
+  /* elementi che entrano quando Nova li nomina */
+  .rv{opacity:0;transform:translateY(14px) scale(.98);transition:opacity .55s ease,transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .6s,border-color .6s}
+  .rv.in{opacity:1;transform:none}
+
+  /* COVER */
+  .cover{justify-content:center;align-items:center;text-align:center;padding:60px 30px 120px}
+  .cover>*{position:relative;z-index:2}
+  #cine{position:absolute;inset:0;width:100%;height:100%;z-index:1;transition:opacity 1.2s}
+  .card.inner #cine{opacity:.42}
+  .cine-vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(75% 55% at 50% 36%,transparent 40%,rgba(2,5,12,.75) 100%),radial-gradient(60% 18% at 50% 62%,rgba(2,6,16,.55),transparent 100%),linear-gradient(180deg,rgba(2,5,12,.55),transparent 18%,transparent 70%,rgba(2,5,12,.9))}
+  .card.listen #cine{opacity:.6}
+  .logo-box{position:relative;width:210px;height:210px}
+  .logo-glow{position:absolute;left:50%;top:50%;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;background:radial-gradient(circle,rgba(74,144,255,.34),rgba(74,144,255,.08) 40%,transparent 65%);animation:breathe 6s ease-in-out infinite;transition:opacity .7s}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+  .logo{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 18px rgba(111,168,255,.55)) drop-shadow(0 0 60px rgba(74,144,255,.35));transition:transform 1s cubic-bezier(.6,-.2,.3,1),opacity .7s,filter .7s}
+  .logo path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.8s cubic-bezier(.25,0,0,1) forwards}
+  .logo path:nth-child(2){animation-delay:.18s}.logo path:nth-child(3){animation-delay:.36s}.logo path:nth-child(4){animation-delay:.6s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .cover.listen .logo{transform:scale(.3);opacity:0}
+  .cover.listen .logo-glow{opacity:0}
+  .word{margin-top:26px;font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.62em;padding-left:.62em;text-transform:uppercase;color:#DCE6FF;opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.1s forwards;transition:opacity .6s,transform .8s}
+  .tagline{margin-top:14px;font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:30px;line-height:1.1;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.35s forwards;transition:opacity .6s}
+  .tagline em{font-style:italic;color:#6FA8FF}
+  @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .cover.listen .word,.cover.listen .tagline{animation:none;opacity:0;transform:translateY(-10px)}
+  .listen-btn{margin-top:30px;opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.7s forwards, breath 2.6s ease-in-out 2.9s infinite;display:flex;align-items:center;gap:12px;padding:14px 24px 14px 14px;border-radius:999px;border:1px solid rgba(127,180,255,.45);background:linear-gradient(120deg,rgba(47,107,255,.32),rgba(12,24,48,.7));color:#fff;font-family:var(--disp);font-weight:500;font-size:14px;letter-spacing:.06em;cursor:pointer;box-shadow:0 0 30px rgba(90,160,255,.35),inset 0 0 18px rgba(127,180,255,.18);transition:opacity .5s,transform .5s}
+  .listen-btn .dot{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#cfe0ff 30%,#6a98ff 70%,#2f6bff);box-shadow:0 0 22px rgba(120,170,255,.9);display:flex;align-items:center;justify-content:center}
+  .listen-btn .dot svg{width:14px;height:14px;fill:#0b1a3a;margin-left:2px}
+  @keyframes breath{50%{box-shadow:0 0 46px rgba(90,160,255,.6),inset 0 0 22px rgba(127,180,255,.28)}}
+  .silent{margin-top:16px;font-family:var(--disp);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;transition:opacity .5s}
+  .cover.listen .listen-btn,.cover.listen .silent{animation:none;opacity:0;transform:scale(.9);pointer-events:none}
+  .hello{position:absolute;left:30px;right:30px;bottom:150px;text-align:center;opacity:0;transition:opacity .8s .6s}
+  .cover.listen .hello{opacity:1}
+  .hello b{display:block;font-family:var(--disp);font-weight:600;font-size:30px;line-height:1.15}
+  .hello span{display:block;margin-top:8px;color:var(--muted);font-size:13px;letter-spacing:.04em}
+
+  /* FOUNDER */
+  .founder{align-items:center;text-align:center}
+  .avatar{width:112px;height:112px;border-radius:50%;overflow:hidden;border:1px solid rgba(127,180,255,.35);box-shadow:0 0 0 6px rgba(127,180,255,.06),0 0 40px rgba(90,160,255,.3);margin-bottom:18px;background:#0a1424}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .role{font-family:var(--disp);font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin-top:10px}
+  .quote{margin-top:22px;font-family:var(--disp);font-weight:300;font-size:19px;line-height:1.42;color:#dbe7ff}
+  .quote b{font-weight:500;color:#fff}
+
+  /* DOLORI */
+  .pains{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+  .pain{display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:18px;background:rgba(236,241,250,.96);color:#0b1428;box-shadow:0 14px 34px rgba(0,0,0,.35)}
+  .pain .ic{flex:0 0 auto;width:42px;height:42px;border-radius:13px;background:#0b1428;display:flex;align-items:center;justify-content:center}
+  .pain .ic svg{width:20px;height:20px;stroke:#8DBBFF;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .pain .tx{flex:1;min-width:0}
+  .pain .t,.pain .s,.pillar .t,.pillar .s{display:block}
+  .pain .t{font-family:var(--disp);font-weight:600;font-size:15px;line-height:1.2}
+  .pain .s{font-size:12px;color:#5a6474;margin-top:2px}
+  .pain .pill{flex:0 0 auto;font-size:10.5px;font-weight:700;padding:6px 10px;border-radius:999px;background:#fdecec;color:#c0392b}
+  .pains.this .pain:last-child{box-shadow:0 0 0 2px #7fb4ff,0 0 40px rgba(127,180,255,.6)}
+
+  /* PILASTRI */
+  .pillars{display:flex;flex-direction:column;gap:10px}
+  .pillar{position:relative;overflow:hidden;display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:18px;border:1px solid rgba(140,180,255,.16);background:linear-gradient(120deg,rgba(20,34,62,.7),rgba(10,18,36,.55));backdrop-filter:blur(10px)}
+  .pillar.in.lit{border-color:rgba(127,180,255,.7);box-shadow:0 0 30px rgba(90,160,255,.35)}
+  .pillar .badge{flex:0 0 auto;width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(127,180,255,.10);border:1px solid var(--neon-soft)}
+  .pillar .badge svg{width:22px;height:22px;stroke:var(--neon);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .pillar .t{font-family:var(--disp);font-weight:600;font-size:15.5px;line-height:1.15;color:#f3f7ff}
+  .pillar .s{font-size:12px;line-height:1.4;color:#9fb3d3;margin-top:2px}
+
+  /* PERCHE' */
+  .why h2{font-size:clamp(28px,8vw,36px)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .chip{padding:9px 14px;border-radius:999px;border:1px solid rgba(127,180,255,.35);background:rgba(47,107,255,.14);font-family:var(--disp);font-size:12.5px;color:#dbe7ff}
+
+  /* CONTATTI */
+  .contact-list{display:flex;flex-direction:column}
+  .crow{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .crow .lab{color:var(--muted);letter-spacing:.06em}
+  .crow a{color:var(--ink);text-decoration:none}
+  .actions{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;border-radius:14px;font-family:var(--disp);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;cursor:pointer;border:1px solid var(--line);background:rgba(18,30,52,.55);color:var(--ink);text-decoration:none;backdrop-filter:blur(6px);transition:.2s}
+  .btn:active{transform:scale(.98)}
+  .btn.primary{background:linear-gradient(100deg,var(--neon-2),var(--neon));color:#08152b;border-color:transparent;font-weight:600;box-shadow:0 8px 26px rgba(90,160,255,.32)}
+  .btn.primary.glow{animation:btnglow 1.4s ease-in-out 3}
+  @keyframes btnglow{50%{box-shadow:0 0 0 4px rgba(127,180,255,.35),0 8px 40px rgba(90,160,255,.7)}}
+
+  /* MODULO */
+  .slide.modulo{justify-content:flex-start;padding-top:262px;padding-bottom:80px;overflow-y:auto}
+  .field{margin-bottom:10px}
+  .field label{display:block;font-family:var(--disp);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;padding:12px 15px;border-radius:12px;background:rgba(12,22,40,.65);border:1px solid var(--line);color:var(--ink);font-family:var(--sans);font-size:15px;outline:none}
+  .field input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(127,180,255,.12)}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin:4px 0 14px;font-size:11.5px;line-height:1.45;color:var(--muted)}
+  .consent input{margin-top:2px;accent-color:var(--neon);width:15px;height:15px;flex:0 0 auto}
+  .thanks{text-align:center;padding:30px 0}
+  .thanks .check{width:60px;height:60px;border-radius:50%;border:1.5px solid var(--neon);color:var(--neon);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 18px;box-shadow:0 0 24px rgba(127,180,255,.3)}
+
+  /* PRENOTA */
+  .slide.book{padding:258px 14px 74px;justify-content:flex-start}
+  .bookframe{flex:1 1 auto;min-height:0;border-radius:16px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  .bookframe iframe{width:100%;height:2500px;border:0;display:block}
+  .ripiego{display:block;text-align:center;margin-top:10px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(146,166,198,.6);text-decoration:none}
+
+  /* su schermi bassi Nova sale e si rimpicciolisce */
+  @media (max-height:760px){
+    #nova{top:70px;width:110px;height:110px;margin-left:-55px}
+    .novalab{top:172px}
+    .slide{padding-top:196px}
+    .slide.modulo{padding-top:200px}.slide.book{padding-top:198px}
+    .quote{font-size:17px}.pillar{padding:10px 13px}.pain{padding:10px 13px}
+  }
+  .card{cursor:pointer;touch-action:pan-y}
+  .navbar{position:absolute;left:16px;right:16px;bottom:14px;z-index:28;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+  .nbtn{pointer-events:auto;width:42px;height:42px;border-radius:50%;border:1px solid rgba(127,180,255,.3);background:rgba(12,22,40,.7);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(6px)}
+  .nbtn svg{width:18px;height:18px;stroke:#cfe0ff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .nbtn.next{background:linear-gradient(120deg,rgba(47,107,255,.55),rgba(90,160,255,.35));border-color:rgba(127,180,255,.6)}
+  .nbtn[disabled]{opacity:.25}
+  .hint{font-family:var(--disp);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;opacity:.75;white-space:nowrap}
+  #cap{bottom:72px}
+
+  /* ---- wow schermate interne ---- */
+  .card.inner #cine{opacity:.8}
+  .card.listen.inner #cine{opacity:.72}
+  .shine{position:relative;overflow:hidden}
+  .shine::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.38) 50%,transparent 65%);transform:translateX(-130%);pointer-events:none}
+  .shine.in::after{animation:sweep 1.3s cubic-bezier(.25,0,0,1) .25s}
+  @keyframes sweep{to{transform:translateX(130%)}}
+  .avwrap{position:relative;width:132px;height:132px;margin-bottom:18px;display:flex;align-items:center;justify-content:center}
+  .avwrap .avatar{margin:0}
+  .ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 55%,#7fb4ff 75%,#fff 80%,transparent 82%);-webkit-mask:radial-gradient(circle,transparent 62px,#000 63px);mask:radial-gradient(circle,transparent 62px,#000 63px);animation:spin 3.5s linear infinite;filter:drop-shadow(0 0 8px #7fb4ff)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .pain.in{animation:hit .5s cubic-bezier(.2,.8,.2,1)}
+  @keyframes hit{0%{transform:translateY(14px) scale(.96)}60%{transform:translateY(-3px) scale(1.02)}100%{transform:none}}
+  .pain .pill{box-shadow:0 0 0 0 rgba(255,80,60,.5)}
+  .pain.in .pill{animation:redpulse 1.8s ease-out .3s 2}
+  @keyframes redpulse{0%{box-shadow:0 0 0 0 rgba(255,80,60,.55)}100%{box-shadow:0 0 0 12px rgba(255,80,60,0)}}
+  .pillar{box-shadow:0 14px 34px rgba(0,0,0,.3)}
+  .pillar .badge{animation:icPulse 3.4s ease-in-out infinite}
+  @keyframes icPulse{50%{box-shadow:0 0 20px rgba(127,180,255,.35) inset;border-color:rgba(127,180,255,.55)}}
+  .svcs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .svc{display:flex;flex-direction:column;gap:3px;padding:14px 13px;border-radius:18px;border:1px solid rgba(140,180,255,.18);background:linear-gradient(140deg,rgba(28,48,92,.72),rgba(10,18,36,.6));backdrop-filter:blur(10px);box-shadow:0 14px 30px rgba(0,0,0,.3)}
+  .svc .ic{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(127,180,255,.12);border:1px solid var(--neon-soft);margin-bottom:8px;box-shadow:0 0 18px rgba(127,180,255,.18)}
+  .svc .ic svg{width:19px;height:19px;stroke:var(--neon);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .svc .t{font-family:var(--disp);font-weight:600;font-size:14.5px;line-height:1.15;color:#f3f7ff}
+  .svc .s{font-size:11.5px;color:#9fb3d3}
+  .svc.in{border-color:rgba(127,180,255,.45);box-shadow:0 0 26px rgba(90,160,255,.25),0 14px 30px rgba(0,0,0,.3)}
+  .chip.in{box-shadow:0 0 18px rgba(90,160,255,.35)}
+  .chip.ok{border-color:rgba(120,230,160,.45);background:rgba(52,199,89,.12)}
+  .chip.ok::before{content:"✓ ";color:#7dffb0}
+  .contact-list,.actions{position:relative}
+  #nova{filter:drop-shadow(0 0 30px rgba(90,150,255,.45))}
+  @media (max-height:760px){.svc{padding:10px 11px}.svc .ic{width:32px;height:32px;margin-bottom:5px}.avwrap{width:112px;height:112px}.ring{-webkit-mask:radial-gradient(circle,transparent 52px,#000 53px);mask:radial-gradient(circle,transparent 52px,#000 53px)}.avwrap .avatar{width:96px;height:96px}}
+
+  /* ritratto grande nella pagina del fondatore */
+  .portrait{position:absolute;left:50%;top:58px;width:min(330px,82%);aspect-ratio:540/750;margin-left:calc(min(330px,82%)/-2);z-index:0;
+    -webkit-mask-image:radial-gradient(62% 56% at 50% 40%,#000 52%,transparent 92%);mask-image:radial-gradient(62% 56% at 50% 40%,#000 52%,transparent 92%);mix-blend-mode:lighten}
+  .portrait img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(1.05)}
+  .portrait::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 70% 25%,rgba(111,168,255,.22),transparent 70%);mix-blend-mode:screen}
+  .portrait.rv{transform:scale(1.08)}.portrait.rv.in{transform:scale(1);transition:opacity 1.2s ease,transform 3s cubic-bezier(.2,.8,.2,1)}
+  .founder h1,.founder .role,.founder .quote{position:relative;z-index:1}
+  .founder .quote{margin-top:16px;font-size:18px}
+  #nova.mini{transform:translate(118px,-34px) scale(.42)}
+  @media (max-height:760px){.portrait{top:50px;width:min(270px,70%);margin-left:calc(min(270px,70%)/-2)}#nova.mini{transform:translate(118px,-20px) scale(.5)}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="bg"></div><div class="bg-img"></div><div class="veil"></div>
+  <canvas id="cine"></canvas><div class="cine-vig"></div>
+  <canvas id="fx"></canvas>
+
+  <div class="progress" id="dots"></div>
+  <div class="topbar">
+    <div class="brand-mini">
+      <svg viewBox="0 0 240 240" aria-hidden="true"><g transform="translate(120 120)" stroke="#6FA8FF" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z"/><path transform="rotate(90)" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z"/><path transform="rotate(180)" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z"/></g><g transform="translate(120 120)" fill="none" stroke="#fff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"><path transform="rotate(270)" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z"/></g></svg>
+      NEXTOS
+    </div>
+    <div class="tools">
+      <button class="ibtn" id="soundBtn" aria-label="Audio"><svg id="snd" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg></button>
+      <button class="ibtn" id="replay" aria-label="Ricomincia"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    </div>
+  </div>
+
+  <canvas id="nova" width="300" height="300"></canvas>
+  <div class="novalab" id="novalab">NOVA</div>
+
+  <div class="track" id="track">
+    <!-- 0 COPERTINA -->
+    <section class="slide cover active" id="cover">
+      <div class="logo-box"><div class="logo-glow"></div>
+      <svg class="logo" viewBox="0 0 240 240" role="img" aria-label="Nextos">
+        <g transform="translate(120 120)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke="#6FA8FF" stroke-width="12" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z"/>
+          <path pathLength="1" stroke="#6FA8FF" stroke-width="12" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z" transform="rotate(90)"/>
+          <path pathLength="1" stroke="#6FA8FF" stroke-width="12" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z" transform="rotate(180)"/>
+          <path pathLength="1" stroke="#FFFFFF" stroke-width="15" d="M0 0C-36-36-36-110 0-110 36-110 36-36 0 0Z" transform="rotate(270)"/>
+        </g>
+      </svg></div>
+      <div class="word">Nextos</div>
+      <div class="tagline">Il software che non ti fa<br><em>perdere clienti.</em></div>
+      <button class="listen-btn" id="listen"><span class="dot"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span>Ascolta Nova</button>
+      <button class="silent" id="silent">oppure sfoglia in silenzio →</button>
+      <div class="hello"><b>Ciao, sono Nova.</b><span>L'assistente di Nextos</span></div>
+    </section>
+
+    <!-- 1 FONDATORE -->
+    <section class="slide founder">
+      <div class="avwrap rv" data-w="0"><div class="ring"></div><div class="avatar"><img src="https://raw.githubusercontent.com/tema765/nextos-assets/main/biglietto-filippo-foto.jpg" alt="Filippo Cosi"/></div></div>
+      <h1 class="rv" data-w="2"><span class="grad">Filippo Cosi</span></h1>
+      <div class="role rv" data-w="5">Founder · Nextos</div>
+      <p class="quote rv" data-w="15">«Nessun professionista dovrebbe <b>perdere un cliente</b> perché non ha avuto tempo.»</p>
+    </section>
+
+    <!-- 3 COSA FA NOVA -->
+    <section class="slide">
+      <div class="kicker rv" data-w="0">Con Nextos, ci penso io</div>
+      <div class="pillars">
+        <div class="pillar rv shine" data-w="2" data-lit="2-15"><span class="badge"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><span><span class="t">Ricordo ogni cliente</span><span class="s">E ti dico quando farti sentire</span></span></div>
+        <div class="pillar rv shine" data-w="16" data-lit="16-26"><span class="badge"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></svg></span><span><span class="t">Ascolto le riunioni</span><span class="s">Ogni compito arriva a chi deve farlo</span></span></div>
+        <div class="pillar rv shine" data-w="27" data-lit="27-30"><span class="badge"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span><span><span class="t">Telefono e scrivo io</span><span class="s">Tu leggi solo com'è andata</span></span></div>
+        <div class="pillar rv shine" data-w="31" data-lit="31-38"><span class="badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><span><span class="t">Il buongiorno di Nova</span><span class="s">Ogni mattina, da dove partire</span></span></div>
+      </div>
+    </section>
+
+    <!-- 4 E OGNI GIORNO -->
+    <section class="slide">
+      <div class="kicker rv" data-w="0">E ogni giorno</div>
+      <div class="svcs">
+        <div class="svc rv shine" data-w="2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span><span class="t">Nova ti chiama</span><span class="s">Quando sei fuori</span></div>
+        <div class="svc rv shine" data-w="9"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span class="t">Email che contano</span><span class="s">Con la risposta pronta</span></div>
+        <div class="svc rv shine" data-w="20"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4"/></svg></span><span class="t">Appuntamenti</span><span class="s">Fissati per te</span></div>
+        <div class="svc rv shine" data-w="23"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="t">Preventivi</span><span class="s">Pronti mentre esci</span></div>
+        <div class="svc rv shine" data-w="27"><span class="ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h6M6 13.5h4"/></svg></span><span class="t">Biglietti da visita</span><span class="s">Diventano contatti</span></div>
+        <div class="svc rv shine" data-w="35"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-5h6v5M9 11h.01M15 11h.01"/></svg></span><span class="t">La tua squadra</span><span class="s">Ogni reparto in ordine</span></div>
+      </div>
+    </section>
+
+    <!-- 5 PERCHE' NEXTOS -->
+    <section class="slide why">
+      <div class="kicker rv" data-w="0">Nextos</div>
+      <h2 class="rv" data-w="2">Il software che<br/>non ti fa perdere<br/><span class="grad">clienti.</span></h2>
+      <div class="chips">
+        <span class="chip rv shine" data-w="11">Liberi professionisti</span>
+        <span class="chip rv shine" data-w="13">Imprenditori</span>
+        <span class="chip rv shine" data-w="15">Manager</span>
+        <span class="chip ok rv shine" data-w="17">Già pronto</span>
+        <span class="chip ok rv shine" data-w="19">Collegato ai tuoi strumenti</span>
+        <span class="chip ok rv shine" data-w="23">Dal primo giorno</span>
+      </div>
+    </section>
+
+    <!-- 5 CONTATTI -->
+    <section class="slide">
+      <div class="kicker rv" data-w="0">Restiamo in contatto</div>
+      <h2 class="rv" data-w="2" style="margin-bottom:14px">Filippo Cosi</h2>
+      <div class="contact-list rv" data-w="3">
+        <div class="crow"><span class="lab">Email</span><a href="mailto:filippo.cosi@nextos-ai.com">filippo.cosi@nextos-ai.com</a></div>
+        <div class="crow"><span class="lab">Telefono</span><a href="tel:+393336991007">+39 333 699 1007</a></div>
+      </div>
+      <div class="actions rv" data-w="0">
+        <a class="btn primary" id="saveContact">＋ Salva contatto</a>
+        <button class="btn" id="shareBtn">Condividi il biglietto</button>
+      </div>
+    </section>
+
+    <!-- 6 MODULO -->
+    <section class="slide modulo">
+      <div id="formWrap">
+        <div class="kicker rv" data-w="0">Piacere di conoscerti</div>
+        <h2 class="rv" data-w="1" style="margin-bottom:12px">Lasciaci<br/>i tuoi dati</h2>
+        <form id="leadForm" class="rv" data-w="3">
+          <div class="field"><label>Nome e cognome</label><input name="nome" type="text" placeholder="Il tuo nome e cognome" required /></div>
+          <div class="field"><label>Email</label><input name="email" type="email" placeholder="nome@email.com" required /></div>
+          <div class="field"><label>Telefono</label><input name="telefono" type="tel" placeholder="+39 333 123 4567" required /></div>
+          <div class="field"><label>Azienda <span style="text-transform:none;letter-spacing:0">(facoltativo)</span></label><input name="azienda" type="text" placeholder="La tua azienda" /></div>
+          <label class="consent"><input type="checkbox" required /><span>Acconsento al trattamento dei miei dati per ricevere comunicazioni e aggiornamenti, secondo l'informativa privacy (GDPR).</span></label>
+          <button type="submit" class="btn primary" style="width:100%">Invia</button>
+        </form>
+      </div>
+      <div id="thanks" class="thanks" style="display:none">
+        <div class="check">✓</div><h2>Ricevuto</h2><p class="muted" style="margin-top:10px;font-size:15px">Grazie. Ti scriviamo noi.</p>
+      </div>
+    </section>
+
+    <!-- 7 PRENOTA -->
+    <section class="slide book">
+      <div class="kicker rv" data-w="6" style="margin-bottom:10px">45 minuti con Filippo, quando vuoi tu</div>
+      <div class="bookframe rv" data-w="6"><iframe src="https://bookings.cloud.microsoft/book/PrenotaNextos@nextos-ai.com/" title="Prenota una call con Filippo" loading="lazy"></iframe></div>
+      <a class="ripiego" href="https://bookings.cloud.microsoft/book/PrenotaNextos@nextos-ai.com/" target="_blank" rel="noreferrer">Il riquadro non si apre? Prenota qui</a>
+    </section>
+  </div>
+
+  <div id="cap"></div>
+  <div class="navbar" id="navbar"><button class="nbtn" id="prevBtn" aria-label="Indietro"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="hint" id="hint">Tocca o scorri</div><button class="nbtn next" id="nextBtn" aria-label="Avanti"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+</div>
+
+<script>
+const AUDIO_SRC = "https://raw.githubusercontent.com/tema765/nextos-assets/main/biglietto-nova.mp3";
+const SEGS = [{"o":0,"d":9.63,"w":[[0.0,"Ciao."],[1.44,"Sono"],[1.84,"Nova,"],[2.24,"l'assistente"],[2.88,"di"],[2.96,"Nextos."],[3.76,"Se"],[4.0,"hai"],[4.24,"questo"],[4.4,"biglietto,"],[4.96,"Filippo"],[5.52,"pensa"],[5.76,"che"],[5.92,"io"],[6.08,"possa"],[6.4,"esserti"],[6.88,"utile."],[7.52,"Ti"],[7.76,"racconto"],[8.32,"perché,"],[8.96,"in"],[9.2,"un"],[9.44,"minuto."]]},{"o":10.03,"d":10.55,"w":[[0.12,"Lui"],[0.52,"è"],[0.68,"Filippo"],[1.16,"Cosi,"],[1.64,"il"],[1.8,"fondatore"],[2.2,"di"],[2.36,"Nextos."],[3.24,"Ha"],[3.48,"costruito"],[4.04,"Nextos"],[4.68,"per"],[4.84,"una"],[5.0,"ragione"],[5.4,"semplice:"],[6.28,"nessun"],[6.84,"professionista"],[7.72,"dovrebbe"],[8.2,"perdere"],[8.6,"un"],[8.68,"cliente"],[9.24,"perché"],[9.56,"non"],[9.72,"ha"],[9.96,"avuto"],[10.36,"tempo."]]},{"o":20.98,"d":14.5,"w":[[0.12,"Io"],[0.44,"mi"],[0.6,"ricordo"],[1.08,"di"],[1.24,"ogni"],[1.48,"cliente,"],[2.28,"e"],[2.52,"ti"],[2.76,"dico"],[3.0,"quando"],[3.24,"è"],[3.4,"il"],[3.48,"momento"],[3.72,"di"],[3.88,"farti"],[4.28,"sentire."],[5.4,"Ascolto"],[6.04,"le"],[6.2,"riunioni,"],[6.6,"e"],[6.68,"ogni"],[6.92,"compito"],[7.32,"arriva"],[7.56,"a"],[7.64,"chi"],[7.8,"deve"],[8.12,"farlo."],[9.08,"Telefono"],[9.88,"io,"],[10.6,"scrivo"],[11.16,"io."],[11.96,"E"],[12.28,"ogni"],[12.6,"mattina,"],[13.16,"ti"],[13.4,"dico"],[13.64,"da"],[13.8,"dove"],[14.12,"partire."]]},{"o":35.88,"d":19.07,"w":[[0.0,"E"],[0.24,"poi:"],[0.72,"quando"],[1.04,"sei"],[1.28,"fuori,"],[1.6,"ti"],[1.76,"chiamo"],[2.16,"io."],[3.36,"Ti"],[3.68,"porto"],[4.08,"solo"],[4.32,"le"],[4.48,"email"],[4.96,"che"],[5.12,"contano,"],[5.76,"con"],[5.92,"la"],[6.0,"risposta"],[6.48,"già"],[6.72,"pronta."],[8.24,"Fisso"],[8.88,"gli"],[9.04,"appuntamenti,"],[10.08,"preparo"],[10.72,"i"],[10.8,"preventivi,"],[11.92,"e"],[12.16,"ogni"],[12.48,"biglietto"],[12.88,"da"],[13.04,"visita"],[13.36,"diventa"],[13.84,"un"],[13.92,"contatto."],[15.52,"E"],[15.92,"se"],[16.16,"guidi"],[16.56,"una"],[16.72,"squadra,"],[17.28,"tengo"],[17.76,"in"],[17.84,"ordine"],[18.24,"ogni"],[18.48,"reparto."]]},{"o":55.35,"d":10.7,"w":[[0.0,"Nextos"],[0.88,"è"],[1.12,"il"],[1.28,"software"],[1.84,"che"],[2.0,"non"],[2.16,"ti"],[2.32,"fa"],[2.56,"perdere"],[3.04,"clienti."],[3.92,"Per"],[4.24,"liberi"],[4.72,"professionisti,"],[5.6,"imprenditori"],[6.24,"e"],[6.4,"manager."],[7.28,"Arriva"],[7.76,"già"],[8.0,"pronto,"],[8.4,"collegato"],[8.88,"ai"],[9.04,"tuoi"],[9.36,"strumenti,"],[9.76,"dal"],[10.0,"primo"],[10.24,"giorno."]]},{"o":66.45,"d":4.63,"w":[[0.12,"Salva"],[0.68,"il"],[0.76,"contatto"],[1.24,"di"],[1.32,"Filippo:"],[2.68,"così"],[3.24,"lo"],[3.48,"ritrovi"],[3.96,"quando"],[4.2,"ti"],[4.44,"serve."]]},{"o":71.48,"d":4.24,"w":[[0.12,"Oppure,"],[1.32,"lasciaci"],[2.12,"i"],[2.2,"tuoi"],[2.44,"dati."],[3.16,"Ti"],[3.4,"scriviamo"],[4.04,"noi."]]},{"o":76.12,"d":5.24,"w":[[0.12,"E"],[0.44,"se"],[0.6,"vuoi"],[0.92,"vedermi"],[1.32,"al"],[1.48,"lavoro,"],[2.2,"prenota"],[2.92,"quarantacinque"],[3.48,"minuti"],[3.72,"con"],[3.88,"Filippo."],[4.44,"Io"],[4.76,"ci"],[4.92,"sarò."]]}];
+const $ = id => document.getElementById(id);
+const card = $('card'), slides = [...document.querySelectorAll('.slide')], hint = $('hint'), cap = $('cap');
+let i = 0, mode = 'idle'; // idle | voice | silent
+let muted = false;
+
+/* ---------- puntini ---------- */
+slides.forEach((_, k) => { const d = document.createElement('i'); d.addEventListener('click', e => { e.stopPropagation(); go(k, true); }); $('dots').appendChild(d); });
+const dots = [...$('dots').children];
+
+/* ---------- audio ---------- */
+let actx = null, buf = null, an = null, src = null, segStart = 0, curSeg = -1, loadP = null;
+function loadAudio(){
+  if (loadP) return loadP;
+  actx = new (window.AudioContext || window.webkitAudioContext)();
+  an = actx.createAnalyser(); an.fftSize = 512; an.connect(actx.destination);
+  loadP = fetch(AUDIO_SRC).then(r => r.arrayBuffer()).then(ab => new Promise((res, rej) => actx.decodeAudioData(ab, res, rej))).then(b => (buf = b)).catch(() => null);
+  return loadP;
+}
+function stopSeg(){ if (src) { src.onended = null; try { src.stop(); } catch(e){} src = null; } curSeg = -1; cap.classList.remove('on'); }
+async function playSeg(k){
+  stopSeg();
+  if (mode !== 'voice' || muted) return;
+  await loadP; if (!buf || i !== k || mode !== 'voice') return;
+  const s = SEGS[k]; src = actx.createBufferSource(); src.buffer = buf; src.connect(an);
+  src.start(0, s.o, s.d); segStart = actx.currentTime; curSeg = k;
+  src.onended = () => { if (curSeg !== k) return; curSeg = -1; cap.classList.remove('on');
+    if (k <= 4 && i === k && mode === 'voice') setTimeout(() => { if (i === k) go(k + 1); }, 700); };
+}
+function segTime(){ return curSeg >= 0 ? actx.currentTime - segStart : -1; }
+
+/* ---------- navigazione ---------- */
+function reveal(sl, all){
+  sl.querySelectorAll('.rv').forEach((e, n) => { if (all) { setTimeout(() => e.classList.add('in'), 120 + n * 110); } else e.classList.remove('in'); });
+}
+function go(n, manual){
+  n = Math.max(0, Math.min(slides.length - 1, n));
+  if (n === 0 && mode !== 'idle') { resetCover(); }
+  i = n;
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  card.classList.toggle('inner', i > 0);
+  dots.forEach((d, k) => d.classList.toggle('on', k === i));
+  $('nova').classList.toggle('on', i > 0 || mode === 'voice');
+  centerNova(i === 0 && mode === 'voice');
+  $('novalab').classList.toggle('on', i > 0);
+  $('navbar').style.display = i === 0 ? 'none' : 'flex';
+  $('nextBtn').disabled = i === slides.length - 1;
+  hint.textContent = i === slides.length - 1 ? 'Fine' : (i === slides.length - 2 ? 'Ancora uno' : 'Tocca o scorri');
+  const sl = slides[i];
+  if (i > 0) {
+    if (mode === 'voice' && !muted && buf !== false) { reveal(sl, false); playSeg(i); }
+    else { stopSeg(); reveal(sl, true); }
+  }
+}
+function resetCover(){ stopSeg(); mode = 'idle'; $('cover').classList.remove('listen'); card.classList.remove('listen'); $('nova').classList.remove('on'); centerNova(false); }
+function centerNova(on){ const n = $('nova'); if (!on) { n.style.transform = ''; return; }
+  const lb = document.querySelector('.logo-box').getBoundingClientRect(), nb = n.getBoundingClientRect(), cur = n.style.transform; n.style.transform = '';
+  const nb0 = n.getBoundingClientRect(); const dy = (lb.top + lb.height / 2) - (nb0.top + nb0.height / 2); n.style.transform = `translateY(${dy}px) scale(1.5)`; }
+
+$('listen').addEventListener('click', async e => {
+  e.stopPropagation(); mode = 'voice'; muted = false; setSnd();
+  loadAudio(); if (actx.state === 'suspended') actx.resume();
+  $('cover').classList.add('listen'); card.classList.add('listen'); $('nova').classList.add('on'); centerNova(true);
+  await loadP; if (!buf) { mode = 'silent'; go(1); return; }
+  setTimeout(() => { if (i === 0 && mode === 'voice') playSeg(0); }, 650);
+});
+$('silent').addEventListener('click', e => { e.stopPropagation(); mode = 'silent'; go(1); });
+$('soundBtn').addEventListener('click', e => {
+  e.stopPropagation(); muted = !muted; setSnd();
+  if (muted) { stopSeg(); reveal(slides[i], true); }
+  else { mode = 'voice'; loadAudio(); if (actx.state === 'suspended') actx.resume(); loadP.then(() => playSeg(i)); }
+});
+function setSnd(){ $('snd').innerHTML = muted || mode !== 'voice' ? '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/>' : '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>'; }
+$('replay').addEventListener('click', e => { e.stopPropagation(); resetCover(); go(0); });
+
+$('prevBtn').addEventListener('click', e => { e.stopPropagation(); go(i - 1, true); });
+$('nextBtn').addEventListener('click', e => { e.stopPropagation(); go(i + 1, true); });
+function startSilent(){ if (mode === 'idle') mode = 'silent'; go(1); }
+card.addEventListener('click', e => {
+  if (e.target.closest('a,button,input,label,textarea,select,.progress,.bookframe,form')) return;
+  if (i === 0) { if (mode === 'idle') startSilent(); return; }
+  const r = card.getBoundingClientRect();
+  go((e.clientX - r.left) < r.width * .3 ? i - 1 : i + 1, true);
+});
+document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { if (i === 0 && mode === 'idle') startSilent(); else go(i + 1, true); return; } if (e.key === 'ArrowLeft') go(i - 1, true); });
+let sx = 0, sy = 0;
+card.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+card.addEventListener('touchend', e => { if (i === 0 && mode !== 'idle') return; const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) { if (i === 0) { if (dx < 0) startSilent(); } else go(dx < 0 ? i + 1 : i - 1, true); } }, { passive: true });
+
+/* ---------- Nova + sottotitoli + elementi sincronizzati ---------- */
+const nc = $('nova'), nx = nc.getContext('2d');
+const fx = $('fx'), fxx = fx.getContext('2d');
+const data = new Uint8Array(256);
+let level = 0, capKey = '';
+function orb(x, cx, cy, R, en, t){
+  let g = x.createRadialGradient(cx, cy, 0, cx, cy, R * 1.65); g.addColorStop(0, `rgba(110,160,255,${.45 + .35 * en})`); g.addColorStop(1, 'rgba(47,107,255,0)');
+  x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R * 1.65, 0, 7); x.fill();
+  for (let r = 0; r < 3; r++) { x.beginPath(); for (let k = 0; k <= 96; k++) { const a = k / 96 * 6.283; const w = Math.sin(a * 3 + t * (1.3 + r * .4) + r) * .5 + Math.sin(a * 5 - t * (2.1 + r * .3)) * .5; const rr = R * (.62 + r * .07) + w * (R * .03 + R * .2 * en); k ? x.lineTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr) : x.moveTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); }
+    x.strokeStyle = `rgba(${r % 2 ? '141,187,255' : '225,236,255'},${.8 - r * .15})`; x.lineWidth = 3; x.stroke(); }
+  g = x.createRadialGradient(cx - R * .16, cy - R * .2, R * .03, cx, cy, R * .62); g.addColorStop(0, '#fff'); g.addColorStop(.35, '#d3e3ff'); g.addColorStop(.75, '#6a98ff'); g.addColorStop(1, 'rgba(47,107,255,0)');
+  x.fillStyle = g; x.beginPath(); x.arc(cx, cy, R * .58, 0, 7); x.fill();
+}
+function groups(ws){ const G = []; let cur = []; ws.forEach((w, k) => { cur.push(k); const L = cur.reduce((a, j) => a + ws[j][1].length + 1, 0); if (/[.,:;?!]$/.test(w[1]) && L > 12 || L > 30) { G.push(cur); cur = []; } }); if (cur.length) G.push(cur); return G; }
+const SG = SEGS.map(s => groups(s.w));
+function resize(){ const r = card.getBoundingClientRect(); fx.width = r.width * devicePixelRatio; fx.height = r.height * devicePixelRatio; }
+addEventListener('resize', resize); resize();
+const stars = Array.from({ length: 70 }, () => [Math.random(), Math.random(), .5 + Math.random() * 1.6, Math.random() * 6]);
+function frame(ts){
+  const t = ts / 1000;
+  // livello voce
+  let lv = 0; if (an && curSeg >= 0) { an.getByteTimeDomainData(data); let s = 0; for (const v of data) { const d = (v - 128) / 128; s += d * d; } lv = Math.min(1, Math.sqrt(s / data.length) * 4.5); }
+  level += (lv - level) * .25;
+  nx.clearRect(0, 0, 300, 300); orb(nx, 150, 150, 88, level, t);
+  // stelle
+  const W = fx.width, H = fx.height; fxx.clearRect(0, 0, W, H);
+  for (const s of stars) { const a = .15 + .45 * Math.abs(Math.sin(t * .6 + s[3])); fxx.fillStyle = `rgba(190,215,255,${a})`; fxx.beginPath(); fxx.arc(s[0] * W, ((s[1] * H) - t * 6 * devicePixelRatio * s[2] + H * 10) % H, s[2] * devicePixelRatio, 0, 7); fxx.fill(); }
+  // sottotitoli e comparse
+  const st = segTime();
+  if (st >= 0) {
+    const s = SEGS[curSeg], ws = s.w; let k = -1; for (let j = 0; j < ws.length; j++) if (st >= ws[j][0] - .04) k = j;
+    const sl = slides[curSeg];
+    sl.querySelectorAll('.rv').forEach(e => { if (k >= +e.dataset.w) e.classList.add('in'); });
+    sl.querySelectorAll('[data-lit]').forEach(e => { const [a, b] = e.dataset.lit.split('-').map(Number); e.classList.toggle('lit', k >= a && k <= b); });
+    if (curSeg === 5 && k >= 0) $('saveContact').classList.add('glow');
+    const g = SG[curSeg].find(gr => k <= gr[gr.length - 1]) || SG[curSeg][SG[curSeg].length - 1];
+    const key = curSeg + '_' + g[0];
+    if (key !== capKey) { cap.innerHTML = '<span class="box">' + g.map(j => `<em data-j="${j}">${ws[j][1]}</em>`).join(' ') + '</span>'; capKey = key; }
+    cap.querySelectorAll('em').forEach(e => { const j = +e.dataset.j; e.className = j < k ? 'on' : (j === k ? 'now' : ''); });
+    cap.classList.add('on');
+  }
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+/* ---------- contatto, condivisione, modulo ---------- */
+const PHOTO_URL = "https://raw.githubusercontent.com/tema765/nextos-assets/main/biglietto-filippo-vcard.jpg";
+$('saveContact').addEventListener('click', async () => {
+  const lines = ["BEGIN:VCARD","VERSION:3.0","N:Cosi;Filippo;;;","FN:Filippo Cosi","ORG:Nextos","TITLE:Founder","EMAIL:filippo.cosi@nextos-ai.com","TEL;TYPE=CELL:+393336991007","URL:https://nextos-ai.com","NOTE:Nextos — il software che non ti fa perdere clienti. Per liberi professionisti e imprenditori."];
+  try { const b = await (await fetch(PHOTO_URL)).blob(); const b64 = await new Promise((res, rej) => { const fr = new FileReader(); fr.onloadend = () => res(String(fr.result).split(',')[1]); fr.onerror = rej; fr.readAsDataURL(b); }); if (b64) lines.push('PHOTO;ENCODING=b;TYPE=JPEG:' + b64); } catch (e) {}
+  lines.push('END:VCARD');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/vcard" })); a.download = "Filippo-Cosi.vcf"; a.click();
+});
+$('shareBtn').addEventListener('click', async () => {
+  const d = { title: "Filippo Cosi — Nextos", text: "Il biglietto di Filippo Cosi, te lo presenta Nova", url: location.href };
+  if (navigator.share) { try { await navigator.share(d); } catch (e) {} } else { navigator.clipboard?.writeText(location.href); alert("Link copiato!"); }
+});
+const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzcBzwhkLJ1i4_EiAhlsh8hR4ZpzN-wfYFf6LSPLerVvNDWrayE1o5LY1DmGWSM617z/exec";
+$('leadForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const fd = Object.fromEntries(new FormData(e.target)); fd.biglietto = "Filippo"; fd.data = new Date().toISOString();
+  fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(fd) }).catch(() => {});
+  $('formWrap').style.display = 'none'; $('thanks').style.display = 'block';
+  const k = i; setTimeout(() => { if (i === k) go(k + 1); }, 2600);
+});
+setSnd(); go(0);
+/* ---------- copertina cinematografica ---------- */
+const cine=$('cine'), cx2=cine.getContext('2d');
+let CW=0,CH=0,DPR=Math.min(2,devicePixelRatio||1);
+function cineSize(){const r=cine.getBoundingClientRect();CW=r.width;CH=r.height;cine.width=CW*DPR;cine.height=CH*DPR;}
+addEventListener('resize',cineSize);cineSize();
+const R0=()=>Math.random();
+const deep=Array.from({length:200},()=>({x:(R0()-.5)*2,y:(R0()-.5)*2,z:R0()*1+.05,c:R0()<.15?'255,214,170':(R0()<.5?'200,225,255':'140,185,255')}));
+const dust=Array.from({length:22},()=>({x:R0(),y:R0(),r:14+R0()*46,s:.2+R0()*.6,p:R0()*6}));
+const blobs=[[.18,.22,.75,'40,90,220',.55],[.85,.3,.7,'90,60,210',.38],[.5,.62,.9,'20,120,255',.35],[.1,.85,.6,'70,40,170',.3],[.9,.82,.65,'30,150,255',.28]];
+const T0=performance.now()/1000;
+function cineFrame(ts){
+  const t=ts/1000-T0;const x=cx2;x.setTransform(DPR,0,0,DPR,0,0);
+  const W=CW,H=CH;const cb=cine.getBoundingClientRect();let lx,ly;if(i===0){const lb=document.querySelector('.logo-box').getBoundingClientRect();lx=lb.left-cb.left+lb.width/2;ly=lb.top-cb.top+lb.height/2;}else{const nb=$('nova').getBoundingClientRect();lx=nb.left-cb.left+nb.width/2;ly=nb.top-cb.top+nb.height/2;} // centro del logo
+  const intro=Math.min(1,t/2.2);
+  x.globalCompositeOperation='source-over';x.fillStyle='#02050c';x.fillRect(0,0,W,H);
+  x.globalCompositeOperation='lighter';
+  // nebulose che respirano
+  blobs.forEach((b,k)=>{const bx=W*(b[0]+.05*Math.sin(t*.07+k*2)),by=H*(b[1]+.04*Math.cos(t*.06+k)),r=Math.max(W,H)*b[2]*(1+.06*Math.sin(t*.2+k));
+    const g=x.createRadialGradient(bx,by,0,bx,by,r);g.addColorStop(0,`rgba(${b[3]},${b[4]*.55*intro})`);g.addColorStop(.45,`rgba(${b[3]},${b[4]*.18*intro})`);g.addColorStop(1,`rgba(${b[3]},0)`);x.fillStyle=g;x.fillRect(0,0,W,H)});
+  // raggi di luce dall'alto
+  x.save();x.translate(lx,-H*.12);
+  for(let k=0;k<9;k++){const a=(k-4)*.13+Math.sin(t*.15+k)*.04;const w=.035+.025*Math.sin(t*.4+k*1.7);const al=(.05+.04*Math.sin(t*.5+k*2.3))*intro;
+    const g=x.createLinearGradient(0,0,0,H*1.1);g.addColorStop(0,`rgba(150,195,255,${al*1.6})`);g.addColorStop(.55,`rgba(110,160,255,${al*.6})`);g.addColorStop(1,'rgba(110,160,255,0)');
+    x.fillStyle=g;x.beginPath();x.moveTo(0,0);x.lineTo(Math.sin(a-w)*H*1.3,Math.cos(a-w)*H*1.3);x.lineTo(Math.sin(a+w)*H*1.3,Math.cos(a+w)*H*1.3);x.closePath();x.fill()}
+  x.restore();
+  // stelle in profondità che vengono verso di noi
+  for(const s of deep){s.z-=.0009*(1+intro);if(s.z<.03){s.z=1;s.x=(R0()-.5)*2;s.y=(R0()-.5)*2}
+    const px=lx+s.x/s.z*W*.18,py=ly+s.y/s.z*W*.18;if(px<-20||px>W+20||py<-20||py>H+20)continue;
+    const pz=s.z+.0045,ox=lx+s.x/pz*W*.18,oy=ly+s.y/pz*W*.18;const a=Math.min(1,(1-s.z)*1.1)*intro*(py>ly+70?.45:1);
+    x.strokeStyle=`rgba(${s.c},${a})`;x.lineWidth=Math.max(.6,(1-s.z)*2);x.beginPath();x.moveTo(ox,oy);x.lineTo(px,py);x.stroke()}
+  // orbite intorno al logo
+  const ro=Math.min(W*.42,190);
+  for(let k=0;k<3;k++){x.save();x.translate(lx,ly);x.rotate(-.35+k*.55+Math.sin(t*.1)*.05);x.scale(1,.28+k*.06);
+    x.strokeStyle=`rgba(127,180,255,${(.16-.035*k)*intro})`;x.lineWidth=1.2;x.beginPath();x.arc(0,0,ro*(1+k*.22),0,6.283);x.stroke();
+    const a=t*(.5-k*.12)+k*2;const px=Math.cos(a)*ro*(1+k*.22),py=Math.sin(a)*ro*(1+k*.22);
+    const g=x.createRadialGradient(px,py,0,px,py,16);g.addColorStop(0,`rgba(220,235,255,${.9*intro})`);g.addColorStop(1,'rgba(120,170,255,0)');x.fillStyle=g;x.beginPath();x.arc(px,py,16,0,7);x.fill();x.restore()}
+  // flare anamorfico sul logo (lampo quando il logo finisce di disegnarsi)
+  const flash=Math.exp(-Math.pow((t-2.3)/.35,2));const fl=(.35+.15*Math.sin(t*1.3))*intro+flash*.9;
+  let g=x.createLinearGradient(0,ly,W,ly);g.addColorStop(0,'rgba(80,140,255,0)');g.addColorStop(.5,`rgba(190,220,255,${.55*fl})`);g.addColorStop(1,'rgba(80,140,255,0)');
+  x.fillStyle=g;x.fillRect(0,ly-1.2-flash*2,W,2.4+flash*4);
+  g=x.createRadialGradient(lx,ly,0,lx,ly,ro*1.3);g.addColorStop(0,`rgba(120,170,255,${.22*fl})`);g.addColorStop(1,'rgba(120,170,255,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+  [-.55,-.25,.32,.7].forEach((f,k)=>{const gx=lx+(lx-W*.15)*f*-1.2,gy=ly+(ly-H*.1)*f*-.6;const r=10+k*9;const g2=x.createRadialGradient(gx,gy,0,gx,gy,r);g2.addColorStop(0,`rgba(140,190,255,${.10*fl})`);g2.addColorStop(1,'rgba(140,190,255,0)');x.fillStyle=g2;x.beginPath();x.arc(gx,gy,r,0,7);x.fill()});
+  if(flash>.02){x.strokeStyle=`rgba(200,225,255,${flash*.8})`;x.lineWidth=2;x.beginPath();x.arc(lx,ly,ro*.4+(t-2.3+.6)*ro*.9,0,7);x.stroke()}
+  // polvere in primo piano (bokeh)
+  for(const d of dust){const px=((d.x*W+Math.sin(t*.2+d.p)*30)+W)%W,py=((d.y*H-t*d.s*14)%H+H)%H;const a=(.04+.05*Math.sin(t*.6+d.p))*intro;
+    const g3=x.createRadialGradient(px,py,0,px,py,d.r);g3.addColorStop(0,`rgba(150,195,255,${a})`);g3.addColorStop(.7,`rgba(150,195,255,${a*.6})`);g3.addColorStop(1,'rgba(150,195,255,0)');x.fillStyle=g3;x.beginPath();x.arc(px,py,d.r,0,7);x.fill()}
+  x.globalCompositeOperation='source-over';
+  requestAnimationFrame(cineFrame);
+}
+requestAnimationFrame(cineFrame);
+
+</script>
+</body>
+</html>
