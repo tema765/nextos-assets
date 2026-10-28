@@ -75,7 +75,8 @@
   .card.inner #cine{opacity:.42}
   .cine-vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(75% 55% at 50% 36%,transparent 40%,rgba(2,5,12,.75) 100%),radial-gradient(60% 18% at 50% 62%,rgba(2,6,16,.55),transparent 100%),linear-gradient(180deg,rgba(2,5,12,.55),transparent 18%,transparent 70%,rgba(2,5,12,.9))}
   .card.listen #cine{opacity:.6}
-  .logo-box{position:relative;width:210px;height:210px}
+  .logo-box{position:relative;width:min(210px,27vh);height:min(210px,27vh);flex:0 0 auto}
+  .cover>*{flex-shrink:0}
   .logo-glow{position:absolute;left:50%;top:50%;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;background:radial-gradient(circle,rgba(74,144,255,.34),rgba(74,144,255,.08) 40%,transparent 65%);animation:breathe 6s ease-in-out infinite;transition:opacity .7s}
   @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
   .logo{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 18px rgba(111,168,255,.55)) drop-shadow(0 0 60px rgba(74,144,255,.35));transition:transform 1s cubic-bezier(.6,-.2,.3,1),opacity .7s,filter .7s}
@@ -85,7 +86,7 @@
   .cover.listen .logo{transform:scale(.3);opacity:0}
   .cover.listen .logo-glow{opacity:0}
   .word{margin-top:26px;font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.62em;padding-left:.62em;text-transform:uppercase;color:#DCE6FF;opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.1s forwards;transition:opacity .6s,transform .8s}
-  .tagline{margin-top:14px;font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:30px;line-height:1.1;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.35s forwards;transition:opacity .6s}
+  .tagline{margin-top:14px;font-family:"Playfair Display",Georgia,serif;font-weight:400;font-size:min(30px,4.3vh);line-height:1.1;color:#fff;text-shadow:0 4px 40px rgba(0,0,0,.6);opacity:0;animation:fadeup 1.2s cubic-bezier(.25,0,0,1) 1.35s forwards;transition:opacity .6s}
   .tagline em{font-style:italic;color:#6FA8FF}
   @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
   .cover.listen .word,.cover.listen .tagline{animation:none;opacity:0;transform:translateY(-10px)}
